@@ -1,0 +1,18 @@
+<h1>{{ question.question_text }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+{# establishes the template as a form that will POST the data to polls/q.id/vote/ #}
+<form action="{% url 'polls:vote' question.id %}" method="post">
+{# protects against Cross Site Request Forgeries #}
+{% csrf_token %}
+{# produces a radio/tick-box for each questions choice #}
+{% for choice in question.choice_set.all %}
+{# forloop.counter indicates how many times the for tag has gone through its loop. #}
+	{# this will allow the post to include the choice as a dict in requests.POST #}
+	{# request.POST[name] = value e.g. request.POST['choice'] = choice.id #}
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+{% endfor %}
+<input type="submit" value="Vote">
+</form>

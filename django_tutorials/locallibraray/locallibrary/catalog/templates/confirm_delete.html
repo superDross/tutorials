@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Delete {{ model_name }}</h1>
+{# object keyword is the parsed model.__str__ #}
+<p>Are you sure you want to {{ model_name }} the {{ model_name }}: {{ object }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Yes, delete.">
+</form>
+
+{% endblock %}

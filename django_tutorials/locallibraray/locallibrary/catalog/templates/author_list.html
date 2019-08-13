@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{# loops through all authors and gives a link for the author and the uthor name #}
+{% block content %}
+  <h1>Author List</h1>
+  {% if my_author_list %}
+  <ul>
+    {% for author in my_author_list %}
+      <li>
+        <a href="{{ author.get_absolute_url }}">{{ author }}</a> 
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no authors in the library.</p>
+  {% endif %}       
+{% endblock %}
