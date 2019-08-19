@@ -1,4 +1,4 @@
-""" Serializers convert data, like querysets, to be converted to JSON types. """
+""" Serializers convert data, like querysets, to JSON types. """
 from rest_framework import serializers
 
 from .models import Choice, Question
