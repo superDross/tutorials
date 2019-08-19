@@ -126,7 +126,7 @@ class SnippetList(generics.ListCreateAPIView):
         """ Only show users snippets."""
         if self.request.user.is_superuser:
             return Snippet.objects.all()
-        return Snippet.objects.filter(owner=self.request.user)
+        return Snippet.objects.filter(owner=self.request.user.id)
 
 
 # DETAIL VIEW
@@ -259,22 +259,6 @@ class UserList(generics.ListAPIView):
 
 class UserDetail(generics.RetrieveAPIView):
     serializer_class = UserSerializer
-
-    def get_queryset(self, *args, **kwargs):
-        """ Only show users snippets."""
-        if self.request.user.is_superuser:
-            return User.objects.all()
-        return User.objects.filter(pk=self.request.user.id)
-
-
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
-    """
-    This viewset automatically provides `list` and `detail` actions.
-    """
-
-    serializer_class = UserSerializer
-
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, SuperUsersOnly]
 
     def get_queryset(self, *args, **kwargs):
         """ Only show users snippets."""
